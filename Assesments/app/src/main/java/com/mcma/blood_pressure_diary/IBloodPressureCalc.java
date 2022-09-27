@@ -1,0 +1,17 @@
+package com.example.mcmid02;
+
+import java.util.List;
+
+/**
+ * This interface shall be used to calculate the average blood pressure
+ */
+public interface IBloodPressureCalc {
+
+    /**
+     * This method takes a number of blood pressure readings and
+     * calculates the average systolic and diastolic blood pressure
+     * @param bloodPressureReadings
+     * @return average of systolic and diastolic readings (the timeStamp can be empty)
+     */
+    BloodPressureReading calcAverage(List<BloodPressureReading> bloodPressureReadings);
+}
