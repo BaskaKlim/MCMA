@@ -15,6 +15,14 @@ public class BloodPressureReading {
     private int dia;
     private long timeStamp;
 
+    public void setSys(int sys) {
+        this.sys = sys;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
     public int getSys() {
         return sys;
     }
@@ -22,6 +30,11 @@ public class BloodPressureReading {
     public int getDia() {
         return dia;
     }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
 
     public BloodPressureReading(int sys, int dia){
         this.sys = sys;

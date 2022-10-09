@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity  {
     List<BloodPressureReading> listOfAverages = new ArrayList<>();
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity  {
         diastolicValue = (TextView) findViewById(R.id.diastolicBloodPressure);
         systolicAverage = (TextView) findViewById(R.id.systolicAverage);
         diastolicAverage = (TextView) findViewById(R.id.diastolicAverage);
-        timeStamp = (TextView) findViewById(Build.VERSION_CODES.R.id.timeStamp);
+        timeStamp = (TextView) findViewById(R.id.timeStamp);
 
 
         buttonSystolic = (Button) findViewById(R.id.btnSystolic);

@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements IBloodPressureCal
 
         List<Integer> sysList = new ArrayList<>();
         List<Integer> diaList = new ArrayList<>();
-        
+
         int sumOfSys = 0;
         int sumOfDia = 0;
 
