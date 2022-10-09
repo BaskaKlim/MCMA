@@ -2,6 +2,7 @@ package com.mcma.blood_pressure_diary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnBloodPressure;
     Button btnBodyWeight;
-    TextView lastSysPressure;
+    TextView lastMeasurement;
     TextView lastDiaPressure;
-    TextView lastBodyWeight;
+    TextView lastSysPressure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnBloodPressure = findViewById(R.id.btnBloodPressure);
         btnBodyWeight = findViewById(R.id.btnBodyWeight);
-        lastSysPressure = findViewById(R.id.lastSysPressure);
+        lastMeasurement = findViewById(R.id.lastMeasurement);
         lastDiaPressure = findViewById(R.id.lastDiaPressure);
-        lastBodyWeight = findViewById(R.id.lastBodyWeight);
+        lastSysPressure = findViewById(R.id.lastSysPressure);
+
 
         /* Intents for BloodPressure & BodyWeight Activities */
         btnBloodPressure.setOnClickListener(view -> {
@@ -39,12 +41,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(bodyWeightPage);
         });
 
-        /* Intents for getting data from activities */
+        /* Getting data from activities */
         Intent data = getIntent();
+        int weight = data.getIntExtra("lastMeasurement", 0);
+        int systolic = data.getIntExtra("lastSysPressure", 0);
+        int diastolic = data.getIntExtra("lastDiaPressure", 0);
 
-        lastSysPressure.setText(String.valueOf(data.getIntExtra("lastSysPressure", 0)));
-        lastDiaPressure.setText(String.valueOf(data.getIntExtra("lastDiaPressure", 0)));
-        lastBodyWeight.setText(String.valueOf(data.getIntExtra("lastBodyWeight", 0)));
+        lastMeasurement.setText("Your last measurement of weight is: ".concat(String.valueOf(weight)));
+        lastSysPressure.setText("Your last measurement of sys is: ".concat(String.valueOf(systolic)));
+        lastDiaPressure.setText("Your last measurement of dia is: ".concat(String.valueOf(diastolic)));
+
 
     }
 }

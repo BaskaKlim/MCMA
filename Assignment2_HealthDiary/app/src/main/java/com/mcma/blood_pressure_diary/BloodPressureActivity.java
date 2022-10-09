@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -57,17 +58,15 @@ public class BloodPressureActivity extends AppCompatActivity  {
         btnBloodPressureBackHome.setBackgroundColor(Color.GRAY);
 
 
-        btnBloodPressureBackHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent homePage = new Intent(BloodPressureActivity.this,MainActivity.class);
-                lastSysPressure = Integer.parseInt(systolicValue.getText().toString().trim());
-                lastDiaPressure = Integer.parseInt(diastolicValue.getText().toString().trim());
-                homePage.putExtra("lastSysPressure", lastSysPressure);
-                homePage.putExtra("lastDiaPressure", lastDiaPressure);
+        btnBloodPressureBackHome.setOnClickListener(view -> {
+            Intent homePage = new Intent(BloodPressureActivity.this,MainActivity.class);
+            lastSysPressure = Integer.parseInt(systolicValue.getText().toString().trim());
+            lastDiaPressure = Integer.parseInt(diastolicValue.getText().toString().trim());
 
-                startActivity(homePage);
-            }
+            homePage.putExtra("lastSysPressure", lastSysPressure);
+            homePage.putExtra("lastDiaPressure", lastDiaPressure);
+
+            startActivity(homePage);
         });
     }
 
@@ -88,17 +87,13 @@ public class BloodPressureActivity extends AppCompatActivity  {
 
     @SuppressLint("SetTextI18n")
     public void onClickAvg(View v) {
+
         BloodPressureReading average = bloodPressureCalc.calcAverage(listOfAverages);
         int avgS = average.getSys();
         int avgD = average.getDia();
 
         systolicAverage.setText(Integer.toString(avgS));
         diastolicAverage.setText(Integer.toString(avgD));
-
-        //cleaning the data
-        listOfAverages.clear();
-        avgS = 0;
-        avgD = 0;
     }
 
     public void onClickSave(View v) {

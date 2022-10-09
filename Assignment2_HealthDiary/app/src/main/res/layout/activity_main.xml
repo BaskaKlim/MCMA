@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">>
+    tools:context=".MainActivity">
 
 
     <Button
@@ -41,28 +41,31 @@
         tools:ignore="ImageContrastCheck" />
 
     <TextView
-        android:id="@+id/lastSysPressure"
+        android:id="@+id/lastMeasurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnBodyWeight"
         android:layout_centerInParent="true"
-        android:text="1" />
+        android:layout_marginTop="20dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/lastSysPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastMeasurement"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="" />
 
     <TextView
         android:id="@+id/lastDiaPressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/lastSysPressure"
         android:layout_centerInParent="true"
-        android:layout_below="@id/lastSysPressure"
-        android:text="2" />
-
-    <TextView
-        android:id="@+id/lastBodyWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lastDiaPressure"
-        android:layout_centerInParent="true"
-        android:text="3" />
+        android:layout_marginTop="20dp"
+        android:text="" />
 
     <TextView
         android:id="@+id/homePageWelcomeTxt"
@@ -71,6 +74,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:fontFamily="monospace"
         android:text="Welcome to Health Diary" />
 
 </RelativeLayout>

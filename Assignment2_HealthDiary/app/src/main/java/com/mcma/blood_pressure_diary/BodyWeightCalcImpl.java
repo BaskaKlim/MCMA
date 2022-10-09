@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BodyWeightCalcImpl implements IBodyWeightCalc{
+    int bodyWeights = 0;
 
     @Override
     public BodyWeightReading calcAverage(List<BodyWeightReading> bodyWeightReadings) {
-        int bodyWeights = 0;
+
         BodyWeightReading avrBodyWeight = new BodyWeightReading();
 
 
