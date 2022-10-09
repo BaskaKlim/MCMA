@@ -50,8 +50,8 @@ public class BodyWeightActivity extends AppCompatActivity {
             Intent homePage = new Intent(BodyWeightActivity.this,MainActivity.class);
             lastBodyWeight = Integer.parseInt(bodyWeightValue.getText().toString().trim());
             homePage.putExtra("lastMeasurement", lastBodyWeight);
-
-            startActivity(homePage);
+            setResult(2,homePage);
+            finish();//finishing activity
         });
     }
 
