@@ -66,7 +66,7 @@ public class BloodPressureActivity extends AppCompatActivity  {
             homePage.putExtra("lastSysPressure", lastSysPressure);
             homePage.putExtra("lastDiaPressure", lastDiaPressure);
             setResult(2,homePage);
-            finish();//finishing activity
+            finish(); //finishing activity
         });
     }
 

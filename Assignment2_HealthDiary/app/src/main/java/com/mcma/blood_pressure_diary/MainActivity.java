@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
+            
             /* Getting data from activities */
             int weight = data.getIntExtra("lastMeasurement", 0);
             int systolic = data.getIntExtra("lastSysPressure", 0);
