@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/btnBloodPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/homePageImg"
+        android:layout_marginStart="216dp"
+        android:layout_marginEnd="52dp"
+        android:text="@string/homepage_btn_bloodPressure" />
+
+    <Button
+        android:id="@+id/btnBodyWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/homePageImg"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="216dp"
+        android:text="@string/homepage_btn_bodyWeight" />
+
+
+    <ImageView
+        android:id="@+id/homePageImg"
+        android:layout_width="407dp"
+        android:layout_height="354dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/homepage_img"
+        app:srcCompat="@drawable/img2"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/lastMeasurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnBodyWeight"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/lastSysPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastMeasurement"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/lastDiaPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastSysPressure"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/homePageWelcomeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:fontFamily="monospace"
+        android:text="Welcome to Health Diary" />
+
+</RelativeLayout>

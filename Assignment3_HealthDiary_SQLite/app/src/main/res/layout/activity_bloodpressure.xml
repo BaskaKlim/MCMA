@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bloodPressureImg"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/bloodpressure" />
+
+    <EditText
+        android:id="@+id/systolicBloodPressure"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bloodPressureImg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:inputType="numberSigned"
+        android:text="Enter Systolic Blood Pressure"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnSystolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bloodPressureImg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/systolicBloodPressure"
+        android:onClick="onClickSystolic"
+        android:radius="10px"
+        android:text="Generate SYS" />
+
+    <EditText
+        android:id="@+id/diastolicBloodPressure"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/systolicBloodPressure"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:inputType="numberSigned"
+        android:text="Enter Diastolic Blood Pressure"
+        android:textSize="15sp" />
+
+
+    <Button
+        android:id="@+id/btnDiastolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/systolicBloodPressure"
+        android:layout_toRightOf="@+id/diastolicBloodPressure"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="onClickDiastolic"
+        android:radius="10px"
+        android:text="Generate DIA" />
+
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/diastolicBloodPressure"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:onClick="onClickSave"
+        android:radius="10px"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnAvg"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/diastolicBloodPressure"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/btnSave"
+        android:gravity="center"
+        android:onClick="onClickAvg"
+        android:radius="10dp"
+        android:text="Average" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSave"
+        android:layout_margin ="10dp"
+        android:layout_toRightOf="@+id/timeStamp"
+        android:gravity="center"
+        android:text="Time of measurement"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/timeStamp"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSave"
+        android:layout_margin = "10dp"
+        android:background="@color/light_purple"
+        android:gravity="center"
+        android:onClick="onClickShowDate"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/systolicAverage"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/timeStamp"
+        android:background="@color/light_red"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textSystolicAvg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/timeStamp"
+        android:layout_toRightOf="@+id/systolicAverage"
+        android:text="Systolic average"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/diastolicAverage"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/light_red"
+        android:layout_below="@+id/systolicAverage"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textDiastolicAvg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textSystolicAvg"
+        android:layout_toRightOf="@+id/diastolicAverage"
+        android:text="Diastolic average"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnBloodPressureBackHome"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/diastolicAverage"
+        android:layout_centerHorizontal="true"
+        android:text="Return"
+        android:layout_margin="10dp" />
+
+</RelativeLayout>
