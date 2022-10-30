@@ -1,6 +1,4 @@
-package com.mcma.blood_pressure_diary.bodyweight;
-
-import com.mcma.blood_pressure_diary.bodyweight.BodyWeightReading;
+package com.mcma.blood_pressure_diary.entities.bodyweight;
 
 import java.util.List;
 

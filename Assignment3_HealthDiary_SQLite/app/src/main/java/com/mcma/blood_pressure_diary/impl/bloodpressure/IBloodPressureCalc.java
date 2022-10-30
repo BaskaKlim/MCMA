@@ -1,6 +1,4 @@
-package com.mcma.blood_pressure_diary.bloodpressure;
-
-import com.mcma.blood_pressure_diary.bloodpressure.BloodPressureReading;
+package com.mcma.blood_pressure_diary.entities.bloodpressure;
 
 import java.util.List;
 

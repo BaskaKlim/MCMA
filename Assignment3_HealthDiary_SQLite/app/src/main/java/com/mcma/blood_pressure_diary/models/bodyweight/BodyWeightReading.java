@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.bodyweight;
+package com.mcma.blood_pressure_diary.entities.bodyweight;
 
 /**
  * This class shall be used to contain a reading of

@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.bodyweight;
+package com.mcma.blood_pressure_diary.entities.bodyweight;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

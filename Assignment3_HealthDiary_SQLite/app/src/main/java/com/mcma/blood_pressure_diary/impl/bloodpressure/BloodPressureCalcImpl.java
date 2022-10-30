@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.bloodpressure;
+package com.mcma.blood_pressure_diary.entities.bloodpressure;
 
 import java.util.ArrayList;
 import java.util.List;
