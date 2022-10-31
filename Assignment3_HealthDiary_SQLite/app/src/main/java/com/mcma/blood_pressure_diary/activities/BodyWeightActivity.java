@@ -1,7 +1,8 @@
-package com.mcma.blood_pressure_diary.entities.bodyweight;
+package com.mcma.blood_pressure_diary.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mcma.blood_pressure_diary.MainActivity;
 import com.mcma.blood_pressure_diary.R;
+import com.mcma.blood_pressure_diary.dao.BloodPressureReadingDAO;
+import com.mcma.blood_pressure_diary.dao.BodyWeightReadingDAO;
+import com.mcma.blood_pressure_diary.impl.bodyweight.BodyWeightCalcImpl;
+import com.mcma.blood_pressure_diary.models.bodyweight.BodyWeightReading;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class BodyWeightActivity extends AppCompatActivity {
@@ -26,13 +29,13 @@ public class BodyWeightActivity extends AppCompatActivity {
     Button btnSaveWeight;
     Button btnGenerateWeight;
     Button btnWeightBackHome;
-    TextView weightTxt;
-    TextView weightAvgValue;
+    TextView lastMeasurementText;
+    TextView lastMeasurement;
+    TextView numberOfMeasurementsText;
+    TextView numberOfMeasurements;
 
     BodyWeightCalcImpl bodyWeight = new BodyWeightCalcImpl();
-    List<BodyWeightReading> listOfWeights = new ArrayList<>();
-
-    int lastBodyWeight;
+    BodyWeightReadingDAO dataBaseHelper = new BodyWeightReadingDAO(BodyWeightActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +46,36 @@ public class BodyWeightActivity extends AppCompatActivity {
         bodyWeightValue = findViewById(R.id.bodyWeightValue);
         btnSaveWeight = findViewById(R.id.btnSaveWeight);
         btnGenerateWeight = findViewById(R.id.btnGenerateWeight);
-        weightTxt = findViewById(R.id.weightTxt);
-        weightAvgValue = findViewById(R.id.weightAvgValue);
+        lastMeasurementText = findViewById(R.id.lastMeasurementText);
+        lastMeasurement = findViewById(R.id.lastMeasurement);
+        numberOfMeasurementsText = findViewById(R.id.numberOfMeasurementsText);
+        numberOfMeasurements = findViewById(R.id.numberOfMeasurements);
         btnWeightBackHome = findViewById(R.id.btnWeightBackHome);
         btnWeightBackHome.setBackgroundColor(Color.GRAY);
 
+        /* setting values from DB when the page is loaded */
 
+        if( dataBaseHelper.getAllWeightRecords().size() >=1){
+            int lastMeasurementValueOnStart = bodyWeight.getLastMeasurement(dataBaseHelper.getAllWeightRecords());
+            int numberOfMeasurementsValue = bodyWeight.numberOfMeasurements(dataBaseHelper.getAllWeightRecords());
+
+            lastMeasurement.setText(Integer.toString(lastMeasurementValueOnStart));
+            numberOfMeasurements.setText(Integer.toString(numberOfMeasurementsValue));
+
+        }
+
+        /* intent handling data */
         btnWeightBackHome.setOnClickListener(view -> {
             Intent homePage = new Intent(BodyWeightActivity.this, MainActivity.class);
-            lastBodyWeight = Integer.parseInt(bodyWeightValue.getText().toString().trim());
-            homePage.putExtra("lastMeasurement", lastBodyWeight);
-            setResult(2,homePage);
-            finish();//finishing activity
+            int avgWeight = calAverage(view);
+
+            homePage.putExtra("avgWeight", avgWeight);
+            setResult(2, homePage);
+            finish();
         });
     }
+
+
 
 
     /* Onclick methods  */
@@ -70,9 +89,9 @@ public class BodyWeightActivity extends AppCompatActivity {
 
     public void onClickSave(View v) {
         String data = bodyWeightValue.getText().toString();
-        BodyWeightReading bodyWeightReading= new BodyWeightReading(Integer.parseInt(data));
-        listOfWeights.add(bodyWeightReading);
-        calAverage(v);
+        BodyWeightReading bodyWeightReading = new BodyWeightReading(Integer.parseInt(data));
+        dataBaseHelper.addWeightRecord(bodyWeightReading);
+        showMeasurements(v);
 
     }
     /* Private support methods  */
@@ -82,13 +101,18 @@ public class BodyWeightActivity extends AppCompatActivity {
         return random.nextInt(220 - 45) + 45;
     }
 
-    @SuppressLint("SetTextI18n")
-    public void calAverage(View v) {
-        BodyWeightReading average = bodyWeight.calcAverage(listOfWeights);
-        int avg = average.getBodyWeight();
-        weightAvgValue.setText(Integer.toString(avg));
+    public void showMeasurements(View v) {
+        int measurements = bodyWeight.numberOfMeasurements(dataBaseHelper.getAllWeightRecords());
+        numberOfMeasurements.setText(Integer.toString(measurements));
+
+        int lastMeasurementValue = bodyWeight.getLastMeasurement(dataBaseHelper.getAllWeightRecords());
+        lastMeasurement.setText(Integer.toString(lastMeasurementValue));
     }
 
+    public int calAverage(View v) {
+        BodyWeightReading average = bodyWeight.calcAverage(dataBaseHelper.getAllWeightRecords());
+        return average.getBodyWeight();
+    }
 
 
 }

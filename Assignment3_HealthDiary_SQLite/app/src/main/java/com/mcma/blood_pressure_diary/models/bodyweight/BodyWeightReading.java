@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.entities.bodyweight;
+package com.mcma.blood_pressure_diary.models.bodyweight;
 
 /**
  * This class shall be used to contain a reading of
@@ -8,9 +8,11 @@ package com.mcma.blood_pressure_diary.entities.bodyweight;
  */
 public class BodyWeightReading {
 
+    private int id;
     private int bodyWeight;
     private long timeStamp;
 
+    public int getId(){return id;}
     public void setBodyWeight(int sys) {
         this.bodyWeight = sys;
     }

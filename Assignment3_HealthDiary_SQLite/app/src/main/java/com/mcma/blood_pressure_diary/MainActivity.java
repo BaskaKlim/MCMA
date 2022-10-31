@@ -7,16 +7,26 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mcma.blood_pressure_diary.bloodpressure.BloodPressureActivity;
-import com.mcma.blood_pressure_diary.bodyweight.BodyWeightActivity;
+import com.mcma.blood_pressure_diary.activities.BloodPressureActivity;
+import com.mcma.blood_pressure_diary.activities.BodyWeightActivity;
+import com.mcma.blood_pressure_diary.dao.BloodPressureReadingDAO;
+import com.mcma.blood_pressure_diary.dao.BodyWeightReadingDAO;
+import com.mcma.blood_pressure_diary.dao.HealthDiaryDAO;
+import com.mcma.blood_pressure_diary.impl.bloodpressure.BloodPressureCalcImpl;
+import com.mcma.blood_pressure_diary.impl.bodyweight.BodyWeightCalcImpl;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnBloodPressure;
     Button btnBodyWeight;
-    TextView lastMeasurement;
-    TextView lastDiaPressure;
-    TextView lastSysPressure;
+    TextView diastolicAverage;
+    TextView systolicAverage;
+    TextView weightAvgValue;
+
+    BloodPressureReadingDAO dataBaseHelperBlood = new BloodPressureReadingDAO(MainActivity.this);
+    BodyWeightReadingDAO dataBaseHelperWeight = new BodyWeightReadingDAO(MainActivity.this);
+    BloodPressureCalcImpl bloodPressureCalc = new BloodPressureCalcImpl();
+    BodyWeightCalcImpl bodyWeightCalc = new BodyWeightCalcImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnBloodPressure = findViewById(R.id.btnBloodPressure);
         btnBodyWeight = findViewById(R.id.btnBodyWeight);
-        lastMeasurement = findViewById(R.id.lastMeasurement);
-        lastDiaPressure = findViewById(R.id.lastDiaPressure);
-        lastSysPressure = findViewById(R.id.lastSysPressure);
+
+        weightAvgValue = findViewById(R.id.weightAvgValue);
+        diastolicAverage = findViewById(R.id.diastolicAverage);
+        systolicAverage = findViewById(R.id.systolicAverage);
+
+
+        /* setting values from DB when the page is loaded */
+        showAvgDataFromDatabase();
 
 
         /* Intents for BloodPressure & BodyWeight Activities */
@@ -46,18 +61,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        showAvgDataFromDatabase();
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
-            
-            /* Getting data from activities */
-            int weight = data.getIntExtra("lastMeasurement", 0);
-            int systolic = data.getIntExtra("lastSysPressure", 0);
-            int diastolic = data.getIntExtra("lastDiaPressure", 0);
 
-            lastMeasurement.setText("Your last measurement of weight is: ".concat(String.valueOf(weight)));
-            lastSysPressure.setText("Your last measurement of sys is: ".concat(String.valueOf(systolic)));
-            lastDiaPressure.setText("Your last measurement of dia is: ".concat(String.valueOf(diastolic)));
+            /* Getting data from activities */
+            int avgWeight = data.getIntExtra("avgWeight", 0);
+            int systolic = data.getIntExtra("systolicAverage", 0);
+            int diastolic = data.getIntExtra("diastolicAverage", 0);
+
+            weightAvgValue.setText("Your average weight is: ".concat(String.valueOf(avgWeight)));
+            systolicAverage.setText("Your average sys is: ".concat(String.valueOf(systolic)));
+            diastolicAverage.setText("Your average dia is: ".concat(String.valueOf(diastolic)));
+
+        }
+    }
+
+    void showAvgDataFromDatabase() {
+        if (dataBaseHelperBlood.getAllBloodPressureRecords().size() >= 1) {
+            int avgSys = bloodPressureCalc.calcAverage(dataBaseHelperBlood.getAllBloodPressureRecords()).getSys();
+            int avgDia = bloodPressureCalc.calcAverage(dataBaseHelperBlood.getAllBloodPressureRecords()).getDia();
+
+            systolicAverage.setText("Your average sys is: ".concat(String.valueOf(avgSys)));
+            diastolicAverage.setText("Your average dia is: ".concat(String.valueOf(avgDia)));
+        }
+        if (dataBaseHelperWeight.getAllWeightRecords().size() >= 1) {
+            int avgWeight = bodyWeightCalc.calcAverage(dataBaseHelperWeight.getAllWeightRecords()).getBodyWeight();
+            weightAvgValue.setText("Your average weight is: ".concat(String.valueOf(avgWeight)));
 
         }
     }

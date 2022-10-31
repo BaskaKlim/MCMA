@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.entities.bloodpressure;
+package com.mcma.blood_pressure_diary.activities;
 
 
 import android.annotation.SuppressLint;
@@ -14,61 +14,71 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mcma.blood_pressure_diary.MainActivity;
 import com.mcma.blood_pressure_diary.R;
+import com.mcma.blood_pressure_diary.dao.BloodPressureReadingDAO;
+import com.mcma.blood_pressure_diary.dao.BodyWeightReadingDAO;
+import com.mcma.blood_pressure_diary.impl.bloodpressure.BloodPressureCalcImpl;
+import com.mcma.blood_pressure_diary.models.bloodpressure.BloodPressureReading;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
-public class BloodPressureActivity extends AppCompatActivity  {
+public class BloodPressureActivity extends AppCompatActivity {
 
-    Button buttonSystolic;
-    Button buttonDiastolic;
-    Button btnAvg;
-    Button btnBloodPressureBackHome;
-    TextView timeStamp;
     TextView systolicValue;
     TextView diastolicValue;
-    TextView systolicAverage;
-    TextView diastolicAverage;
+    Button buttonSystolic;
+    Button buttonDiastolic;
+    Button btnSave;
+    TextView timeStamp;
+    TextView numberOfMeasurementsText;
+    TextView numberOfMeasurements;
+    Button btnBloodPressureBackHome;
 
     BloodPressureCalcImpl bloodPressureCalc = new BloodPressureCalcImpl();
-    List<BloodPressureReading> listOfAverages = new ArrayList<>();
+    BloodPressureReadingDAO dataBaseHelper = new BloodPressureReadingDAO(BloodPressureActivity.this);
 
-    int lastSysPressure;
-    int lastDiaPressure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloodpressure);
 
-        //Declaration of xml objects
+        /* Declaration of xml objects */
 
         systolicValue = findViewById(R.id.systolicBloodPressure);
         diastolicValue = findViewById(R.id.diastolicBloodPressure);
-        systolicAverage = findViewById(R.id.systolicAverage);
-        diastolicAverage = findViewById(R.id.diastolicAverage);
-        timeStamp =  findViewById(R.id.timeStamp);
+        numberOfMeasurementsText = findViewById(R.id.numberOfMeasurementsText);
+        numberOfMeasurements = findViewById(R.id.numberOfMeasurements);
+        timeStamp = findViewById(R.id.timeStamp);
         buttonSystolic = findViewById(R.id.btnSystolic);
         buttonDiastolic = findViewById(R.id.btnDiastolic);
-        btnAvg = findViewById(R.id.btnAvg);
-        btnAvg.setBackgroundColor(Color.RED);
+        btnSave = findViewById(R.id.btnSave);
         btnBloodPressureBackHome = findViewById(R.id.btnBloodPressureBackHome);
         btnBloodPressureBackHome.setBackgroundColor(Color.GRAY);
 
+        /* setting values from DB when the page is loaded */
 
+        if( dataBaseHelper.getAllBloodPressureRecords().size() >=1) {
+            int numberOfMeasurementsValue = bloodPressureCalc.numberOfMeasurements(dataBaseHelper.getAllBloodPressureRecords());
+            String timeOfLastMeasurement = convertTime(bloodPressureCalc.timeOfLastMeasurement(dataBaseHelper.getAllBloodPressureRecords()));
+
+            numberOfMeasurements.setText(Integer.toString(numberOfMeasurementsValue));
+            timeStamp.setText(timeOfLastMeasurement);
+        }
+
+        /* intent handling data */
         btnBloodPressureBackHome.setOnClickListener(view -> {
             Intent homePage = new Intent(BloodPressureActivity.this, MainActivity.class);
-            lastSysPressure = Integer.parseInt(systolicValue.getText().toString().trim());
-            lastDiaPressure = Integer.parseInt(diastolicValue.getText().toString().trim());
 
-            homePage.putExtra("lastSysPressure", lastSysPressure);
-            homePage.putExtra("lastDiaPressure", lastDiaPressure);
-            setResult(2,homePage);
-            finish(); //finishing activity
+            int systolicAverage = calAverageSys(view);
+            int diastolicAverage = calAverageDia(view);
+
+            homePage.putExtra("systolicAverage", systolicAverage);
+            homePage.putExtra("diastolicAverage", diastolicAverage);
+            setResult(2, homePage);
+            finish();
         });
     }
 
@@ -87,23 +97,16 @@ public class BloodPressureActivity extends AppCompatActivity  {
         diastolicValue.setText(Integer.toString(randomRoll));
     }
 
-    @SuppressLint("SetTextI18n")
-    public void onClickAvg(View v) {
-
-        BloodPressureReading average = bloodPressureCalc.calcAverage(listOfAverages);
-        int avgS = average.getSys();
-        int avgD = average.getDia();
-
-        systolicAverage.setText(Integer.toString(avgS));
-        diastolicAverage.setText(Integer.toString(avgD));
-    }
-
     public void onClickSave(View v) {
         String sys = systolicValue.getText().toString();
         String dia = diastolicValue.getText().toString();
-        BloodPressureReading bloodPressureReading= new BloodPressureReading(Integer.parseInt(sys), Integer.parseInt(dia));
-        listOfAverages.add(bloodPressureReading);
+
+        BloodPressureReading bloodPressureReading = new BloodPressureReading(Integer.parseInt(sys), Integer.parseInt(dia));
+        dataBaseHelper.addBloodPressureRecord(bloodPressureReading);
+
         onClickShowDate(v, bloodPressureReading);
+        showMeasurements(v);
+
     }
 
     public void onClickShowDate(View v, @NonNull BloodPressureReading bloodPressureReading) {
@@ -122,10 +125,25 @@ public class BloodPressureActivity extends AppCompatActivity  {
         return random.nextInt(105 - 60) + 60;
     }
 
-    public String convertTime(long time){
+    public String convertTime(long time) {
         Date date = new Date(time);
         Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
         return format.format(date);
+    }
+
+    public int calAverageSys(View v) {
+        BloodPressureReading average = bloodPressureCalc.calcAverage(dataBaseHelper.getAllBloodPressureRecords());
+        return average.getSys();
+    }
+
+    public int calAverageDia(View v) {
+        BloodPressureReading average = bloodPressureCalc.calcAverage(dataBaseHelper.getAllBloodPressureRecords());
+        return average.getDia();
+    }
+
+    public void showMeasurements(View v) {
+        int lastMeasurementValue = bloodPressureCalc.numberOfMeasurements(dataBaseHelper.getAllBloodPressureRecords());
+        numberOfMeasurements.setText(Integer.toString(lastMeasurementValue));
     }
 
 }

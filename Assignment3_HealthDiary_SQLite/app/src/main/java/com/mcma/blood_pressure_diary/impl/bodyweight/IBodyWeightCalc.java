@@ -1,5 +1,8 @@
-package com.mcma.blood_pressure_diary.entities.bodyweight;
+package com.mcma.blood_pressure_diary.impl.bodyweight;
 
+import com.mcma.blood_pressure_diary.models.bodyweight.BodyWeightReading;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -7,11 +10,9 @@ import java.util.List;
  */
 public interface IBodyWeightCalc {
 
-    /**
-     * This method takes a number of body weight readings and
-     * calculates the average weight
-     * @param bodyWeightReadings
-     * @return average of weight readings (the timeStamp can be empty)
-     */
-    BodyWeightReading calcAverage(List<BodyWeightReading> bodyWeightReadings);
+    BodyWeightReading calcAverage(LinkedList<BodyWeightReading> bodyWeightReadings);
+
+    int numberOfMeasurements(LinkedList<BodyWeightReading> bodyWeightReadings);
+
+    int getLastMeasurement(LinkedList<BodyWeightReading> bodyWeightReadings);
 }

@@ -1,17 +1,17 @@
-package com.mcma.blood_pressure_diary.entities.bloodpressure;
+package com.mcma.blood_pressure_diary.impl.bloodpressure;
 
-import java.util.List;
+import com.mcma.blood_pressure_diary.models.bloodpressure.BloodPressureReading;
+
+import java.util.LinkedList;
 
 /**
  * This interface shall be used to calculate the average blood pressure
  */
 public interface IBloodPressureCalc {
 
-    /**
-     * This method takes a number of blood pressure readings and
-     * calculates the average systolic and diastolic blood pressure
-     * @param bloodPressureReadings
-     * @return average of systolic and diastolic readings (the timeStamp can be empty)
-     */
-    BloodPressureReading calcAverage(List<BloodPressureReading> bloodPressureReadings);
+    BloodPressureReading calcAverage(LinkedList<BloodPressureReading> bloodPressureReadings);
+
+    int numberOfMeasurements(LinkedList<BloodPressureReading> bloodPressureReadings);
+
+    long timeOfLastMeasurement(LinkedList<BloodPressureReading> bloodPressureReadings);
 }

@@ -1,16 +1,17 @@
-package com.mcma.blood_pressure_diary.entities.bloodpressure;
+package com.mcma.blood_pressure_diary.impl.bloodpressure;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mcma.blood_pressure_diary.models.bloodpressure.BloodPressureReading;
+
+import java.util.LinkedList;
 
 public class BloodPressureCalcImpl implements IBloodPressureCalc {
-    List<Integer> sysList = new ArrayList<>();
-    List<Integer> diaList = new ArrayList<>();
+    LinkedList<Integer> sysList = new LinkedList<>();
+    LinkedList<Integer> diaList = new LinkedList<>();
     int sumOfSys = 0;
     int sumOfDia = 0;
 
     @Override
-    public BloodPressureReading calcAverage(List<BloodPressureReading> bloodPressureReadings) {
+    public BloodPressureReading calcAverage(LinkedList<BloodPressureReading> bloodPressureReadings) {
 
         BloodPressureReading avgBloodPressure = new BloodPressureReading();
 
@@ -32,5 +33,15 @@ public class BloodPressureCalcImpl implements IBloodPressureCalc {
             return avgBloodPressure;
         }
         return new BloodPressureReading(0,0);
+    }
+
+    @Override
+    public int numberOfMeasurements(LinkedList<BloodPressureReading> bloodPressureReadings) {
+        return  bloodPressureReadings.size();
+    }
+
+    @Override
+    public long timeOfLastMeasurement(LinkedList<BloodPressureReading> bloodPressureReadings) {
+        return bloodPressureReadings.getLast().getTimeStamp();
     }
 }

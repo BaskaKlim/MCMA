@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_bloodpressure.xml" value="0.29055633544921866" />
-        <entry key="app/src/main/res/layout/activity_bodyweight.xml" value="0.21951219512195122" />
+        <entry key="app/src/main/res/layout/activity_bodyweight.xml" value="0.6143997192382813" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.17300724637681159" />
       </map>
@@ -15,5 +15,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.6143997192382813" />
+      </ProjectState>
+    </option>
   </component>
 </project>

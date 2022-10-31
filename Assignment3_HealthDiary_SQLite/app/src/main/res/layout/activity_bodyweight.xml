@@ -50,22 +50,46 @@
         android:text="Generate Weight" />
 
     <TextView
-        android:id="@+id/weightTxt"
+        android:id="@+id/lastMeasurementText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bodyWeightValue"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="10dp"
-        android:text="Your average weight in kg is: " />
+        android:text="Your last measurement in kg is: " />
 
     <TextView
-        android:id="@+id/weightAvgValue"
+        android:id="@+id/lastMeasurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/weightTxt"
-        android:text="0" />
+        android:layout_below="@+id/bodyWeightValue"
+        android:layout_toRightOf="@+id/lastMeasurementText"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/numberOfMeasurementsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastMeasurement"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Number of measurements in DB: " />
+
+    <TextView
+        android:id="@+id/numberOfMeasurements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lastMeasurement"
+        android:layout_toRightOf="@+id/numberOfMeasurementsText"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="" />
 
     <Button
         android:id="@+id/btnWeightBackHome"

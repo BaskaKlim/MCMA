@@ -1,4 +1,4 @@
-package com.mcma.blood_pressure_diary.entities.bloodpressure;
+package com.mcma.blood_pressure_diary.models.bloodpressure;
 
 /**
  * This class shall be used to contain a reading of
@@ -11,9 +11,12 @@ package com.mcma.blood_pressure_diary.entities.bloodpressure;
  */
 public class BloodPressureReading {
 
+    private int id;
     private int sys;
     private int dia;
     private long timeStamp;
+
+    public int getId(){return id;}
 
     public void setSys(int sys) {
         this.sys = sys;
@@ -31,8 +34,7 @@ public class BloodPressureReading {
         return dia;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public long getTimeStamp() {return timeStamp;
     }
 
 

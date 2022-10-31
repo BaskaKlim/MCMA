@@ -54,19 +54,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/systolicBloodPressure"
-        android:layout_toRightOf="@+id/diastolicBloodPressure"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/diastolicBloodPressure"
+
         android:onClick="onClickDiastolic"
         android:radius="10px"
         android:text="Generate DIA" />
 
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSave"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/timeStamp"
+        android:gravity="center"
+        android:text="Time of last measurement"
+        android:textSize="15sp" />
 
+
+    <TextView
+        android:id="@+id/timeStamp"
+        android:layout_width="220dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/btnSave"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/light_purple"
+        android:gravity="center"
+        android:onClick="onClickShowDate"
+        android:textSize="15sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/btnSave"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/diastolicBloodPressure"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
@@ -76,94 +107,45 @@
         android:radius="10px"
         android:text="Save" />
 
-    <Button
-        android:id="@+id/btnAvg"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/diastolicBloodPressure"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_toRightOf="@+id/btnSave"
-        android:gravity="center"
-        android:onClick="onClickAvg"
-        android:radius="10dp"
-        android:text="Average" />
 
     <TextView
-        android:id="@+id/textTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSave"
-        android:layout_margin ="10dp"
-        android:layout_toRightOf="@+id/timeStamp"
-        android:gravity="center"
-        android:text="Time of measurement"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/timeStamp"
+        android:id="@+id/numberOfMeasurements"
         android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSave"
-        android:layout_margin = "10dp"
-        android:background="@color/light_purple"
-        android:gravity="center"
-        android:onClick="onClickShowDate"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/systolicAverage"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/timeStamp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/light_red"
+        android:gravity="center"
         android:textSize="15sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textSystolicAvg"
+        android:id="@+id/numberOfMeasurementsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_below="@+id/timeStamp"
-        android:layout_toRightOf="@+id/systolicAverage"
-        android:text="Systolic average"
-        android:textSize="15sp" />
-    <TextView
-        android:id="@+id/diastolicAverage"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/light_red"
-        android:layout_below="@+id/systolicAverage"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textDiastolicAvg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/textSystolicAvg"
-        android:layout_toRightOf="@+id/diastolicAverage"
-        android:text="Diastolic average"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/numberOfMeasurements"
+        android:text="Number of measurements in DB"
         android:textSize="15sp" />
 
     <Button
         android:id="@+id/btnBloodPressureBackHome"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/diastolicAverage"
+        android:layout_below="@+id/numberOfMeasurementsText"
         android:layout_centerHorizontal="true"
-        android:text="Return"
-        android:layout_margin="10dp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Return" />
 
 </RelativeLayout>
